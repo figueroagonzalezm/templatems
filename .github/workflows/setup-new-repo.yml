@@ -6,6 +6,11 @@ jobs:
   setup-project-by-name:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Packages Name
-        run: echo "executing project setup by name"
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Search by Files Content
+        run: |
+          pwd
+          ls -a
+          find . -type f -print | xargs grep "templatems"
       #  setup-files-content:
