@@ -8,14 +8,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Search by Files Content
+      - name: Set new project name in files
         run: |
-          pwd
-          ls -a
-          echo "-----------------------------------------"
-          find . -type f -print | xargs grep "templatems"
-          echo "-----------------------------------------"
+#          pwd
+#          ls -a
+#          echo "-----------------------------------------"
+#          find . -type f -print | xargs grep "templatems"
+#          echo "-----------------------------------------"
           find . -type f -print0 | xargs -0 sed -i 's/templatems/nuevonombre/g'
           echo "-----------------------------------------"
           find . -type f -print | xargs grep "nuevonombre"
-      #  setup-files-content:
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
