@@ -1,0 +1,11 @@
+name: Setup new repo created from Template
+
+on: [push]
+
+jobs:
+  setup-project-by-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Packages Name
+        run: echo "executing project setup by name"
+      #  setup-files-content:
