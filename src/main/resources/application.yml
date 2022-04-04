@@ -5,4 +5,4 @@ spring:
     include:
       - commons
   application:
-    name: nuevonombre
+    name: templatems
