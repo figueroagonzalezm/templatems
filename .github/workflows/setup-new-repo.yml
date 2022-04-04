@@ -11,7 +11,7 @@ jobs:
       - name: Set new project name in files
         run: |
           git status
-          find . -type f -print0 | xargs -0 sed -i 's/templatems/nuevonombre/g'
+          find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/templatems/nuevonombre/g'
           echo "-----------------------------------------"
           find . -type f -print | xargs grep "nuevonombre"
       - name: Commit and Push Changes
@@ -22,6 +22,7 @@ jobs:
           commit_prefix: "[AUTO]"
           commit_message: "Automatic commit"
           force: false
+
 #          target_branch: update/version
 #      - name: Commit & Push changes
 #        uses: actions-js/push@master
