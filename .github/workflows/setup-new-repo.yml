@@ -1,6 +1,8 @@
 name: Setup new repo created from Template
 
-on: [create]
+on:
+  release:
+    types: [published]
 
 jobs:
   setup-project-by-name:
