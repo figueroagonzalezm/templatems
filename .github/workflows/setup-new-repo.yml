@@ -7,6 +7,7 @@ on:
 jobs:
   setup-project-by-name:
     runs-on: ubuntu-latest
+    if: github.event.release.name == 'SETUP_NEW_PROJECT'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -16,6 +17,8 @@ jobs:
           project_name=${GITHUB_REPOSITORY#*/}
           echo "project_name: $project_name"
           echo "Name: ${{ github.event.release.name }} Description: ${{ github.event.release.body }}"
+          echo "GroupId: ${{ github.event.release.body.groupId }}"
+
 #          find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/$project_name/templatems/g'
 #          echo "-----------------------------------------"
 #          find . -type f -print | xargs grep $project_name
