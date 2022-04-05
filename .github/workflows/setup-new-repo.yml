@@ -1,6 +1,6 @@
 name: Setup new repo created from Template
 
-on: [push]
+on: [create]
 
 jobs:
   setup-project-by-name:
@@ -13,9 +13,9 @@ jobs:
           git status
           project_name=${GITHUB_REPOSITORY#*/}
           echo "project_name: $project_name"
-          find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/nuevonombre/templatems/g'
+          find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/$project_name/templatems/g'
           echo "-----------------------------------------"
-          find . -type f -print | xargs grep "nuevonombre"
+          find . -type f -print | xargs grep $project_name
       - name: Commit and Push Changes
         uses: devops-infra/action-commit-push@master
         with:
