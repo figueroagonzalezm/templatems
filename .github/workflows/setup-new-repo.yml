@@ -11,6 +11,8 @@ jobs:
       - name: Set new project name in files
         run: |
           git status
+          project_name=${GITHUB_REPOSITORY#*/}
+          echo "project_name: $project_name"
           find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/nuevonombre/templatems/g'
           echo "-----------------------------------------"
           find . -type f -print | xargs grep "nuevonombre"
