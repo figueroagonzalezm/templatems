@@ -19,8 +19,9 @@ jobs:
           echo "Name: ${{ github.event.release.name }} Description: ${{ github.event.release.body }}"
           release_body="${{ github.event.release.body }}"
           echo $release_body
-          package_name=jq '.groupId'
-          echo $package_name
+          echo ${{fromJson($release_body).groupId}}
+          echo ${{fromJson(release_body).groupId}}
+
 #          find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/$project_name/templatems/g'
 #          echo "-----------------------------------------"
 #          find . -type f -print | xargs grep $project_name
