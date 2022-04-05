@@ -15,9 +15,10 @@ jobs:
           git status
           project_name=${GITHUB_REPOSITORY#*/}
           echo "project_name: $project_name"
-          find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/$project_name/templatems/g'
-          echo "-----------------------------------------"
-          find . -type f -print | xargs grep $project_name
+          echo "Name: ${{ github.event.release.name }} Description: ${{ github.event.release.body }}"
+#          find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/$project_name/templatems/g'
+#          echo "-----------------------------------------"
+#          find . -type f -print | xargs grep $project_name
       - name: Commit and Push Changes
         uses: devops-infra/action-commit-push@master
         with:
