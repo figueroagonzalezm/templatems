@@ -18,9 +18,10 @@ jobs:
           echo "project_name: $project_name"
           echo "Name: ${{ github.event.release.name }} Description: ${{ github.event.release.body }}"
           base_package=${{ fromJSON(github.event.release.body).groupId }}
+          echo "base_package: $base_package"
           IFS="." read -a package_folders <<< $base_package
-          echo $package_folders
-          for i in "$package_folders[@]"; do printf "$i\n"; done
+          echo "package_folders: $package_folders"
+          for i in "$package_folders[@]"; do printf "$i "; done
 
 #          find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/$project_name/templatems/g'
 #          echo "-----------------------------------------"
