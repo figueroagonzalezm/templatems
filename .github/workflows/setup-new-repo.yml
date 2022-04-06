@@ -2,7 +2,7 @@ name: Setup new repo created from Template
 
 on:
   release:
-    types: [published, edited]
+    types: [published]
 
 jobs:
   setup-project-by-name:
@@ -11,20 +11,40 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set new project name in files
+      - name: Setup Packages Structure
         run: |
-          git status
-          project_name=${GITHUB_REPOSITORY#*/}
-          echo "project_name: $project_name"
-          base_package=${{ fromJSON(github.event.release.body).groupId }}
-          echo "base_package: $base_package"
-          IFS='.'
-          read -r -a package_folders <<< "$base_package"
-          echo "package_folders: $package_folders"
-          for i in $package_folders; do printf "$i "; done
+          new_package=${{ fromJSON(github.event.release.body).groupId }}
+          echo "new_package: $new_package"
+          package_folder=${new_package//.//}
+          echo "package_folder: $package_folder"
+          base_folder="$(pwd)/src/main/java"
+          echo "yendo a base_folder: $base_folder"
+          cd $base_folder
+          echo "crear temporary"
+          mkdir -p temporary
+          echo "source_path: $base_folder/com/modyo/example/"
+          source_path="$base_folder/com/modyo/example/"
+          echo "temp_path: $base_folder/temporary/"
+          temp_path="$base_folder/temporary/"
+          echo "destination_path: $base_folder/$package_folder"
+          destination_path="$base_folder/$package_folder"
+          echo "mover $source_path* $temp_path"
+          mv $source_path* $temp_path
+          echo "eliminar package original $base_folder/com"
+          rm -r "$base_folder/com"
+          echo "crear $package_folder"
+          mkdir -p $package_folder
+          echo "mover $temp_path* $destination_path"
+          mv $temp_path* $destination_path
+          echo "eliminar temp_path: $temp_path"
+          rm -r $temp_path
+          cd $destination_path
+          pwd
+          ls -a
+      - name: Replace Project Name in Files
+#          git status
+#          project_name=${GITHUB_REPOSITORY#*/}
 #          for f in $FILES; do [YOUR COMMAND HERE]; done
-
-
 #          find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/$project_name/templatems/g'
 #          echo "-----------------------------------------"
 #          find . -type f -print | xargs grep $project_name
