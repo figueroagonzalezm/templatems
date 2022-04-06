@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Setup Packages Structure
         run: |
           new_package=${{ fromJSON(github.event.release.body).groupId }}
@@ -41,6 +42,7 @@ jobs:
           cd $destination_path
           pwd
           ls -a
+
       - name: Replace Project Name in Files
         run: |
           git status
@@ -48,16 +50,15 @@ jobs:
           find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/$project_name/templatems/g'
           echo "-----------------------------------------"
           find . -type f -print | xargs grep $project_name
-#      - name: Commit and Push Changes
-#        uses: devops-infra/action-commit-push@master
-#        with:
-#          github_token: "${{ secrets.GITHUB_TOKEN }}"
-#          add_timestamp: false
-#          commit_prefix: "[AUTO]"
-#          commit_message: "Automatic commit"
-#          force: false
 
-#          target_branch: update/version
+      - name: Commit and Push Changes
+        uses: devops-infra/action-commit-push@master
+        with:
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          add_timestamp: false
+          commit_prefix: "[AUTO] "
+          commit_message: "Automatic commit"
+          force: false
 #      - name: Commit & Push changes
 #        uses: actions-js/push@master
 #        with:
