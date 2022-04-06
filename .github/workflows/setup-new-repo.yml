@@ -47,7 +47,7 @@ jobs:
         run: |
           project_name=${GITHUB_REPOSITORY#*/}
           echo "project_name: $project_name
-          echo "replace command: 's/$project_name/templatems/g'"
+          echo "replace command: 's/templatems/$project_name/g'"
           find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/templatems/$project_name/g'
           find . -type f -print | xargs grep $project_name
 
