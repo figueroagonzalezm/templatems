@@ -51,8 +51,10 @@ jobs:
           find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/templatems/$project_name/g'
           find . -type f -print | xargs grep $project_name
 
-      - name: Commit and Push Changes
+      - name: Check Git Status
         run: git status
+
+      - name: Commit and Push Changes
         uses: devops-infra/action-commit-push@master
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
