@@ -45,13 +45,14 @@ jobs:
 
       - name: Replace Project Name in Files
         run: |
-          git status
           project_name=${GITHUB_REPOSITORY#*/}
-          find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/$project_name/templatems/g'
-          echo "-----------------------------------------"
+          echo "project_name: $project_name
+          echo "replace command: 's/$project_name/templatems/g'"
+          find . -type f -not -path './.github/workflows/*' -print0 | xargs -0 sed -i 's/templatems/$project_name/g'
           find . -type f -print | xargs grep $project_name
 
       - name: Commit and Push Changes
+        run: git status
         uses: devops-infra/action-commit-push@master
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
