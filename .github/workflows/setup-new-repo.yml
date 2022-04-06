@@ -41,7 +41,7 @@ jobs:
           cd $destination_path
           pwd
           ls -a
-      - name: Replace Project Name in Files
+#      - name: Replace Project Name in Files
 #          git status
 #          project_name=${GITHUB_REPOSITORY#*/}
 #          for f in $FILES; do [YOUR COMMAND HERE]; done
