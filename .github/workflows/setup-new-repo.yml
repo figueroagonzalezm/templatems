@@ -19,7 +19,7 @@ jobs:
           base_package=${{ fromJSON(github.event.release.body).groupId }}
           echo "base_package: $base_package"
           IFS='.'
-          read -ra package_folders <<< "$base_package"
+          read -r -a package_folders <<< "$base_package"
           echo "package_folders: $package_folders"
           for i in $package_folders; do printf "$i "; done
 #          for f in $FILES; do [YOUR COMMAND HERE]; done
